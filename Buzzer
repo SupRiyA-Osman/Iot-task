@@ -1,0 +1,23 @@
+const int buzzerPin = 10;  // Pin connected to the buzzer
+const int switchPin = 4;  // Pin connected to the switch
+
+void setup() {
+  // Initialize the buzzer pin as an output
+  pinMode(buzzerPin, OUTPUT);
+  
+  // Initialize the switch pin as an input with a pull-down resistor
+  pinMode(switchPin, INPUT);
+}
+
+void loop() {
+  // Read the state of the switch
+  int switchState = digitalRead(switchPin);
+  
+  // If the switch is pressed (HIGH), turn on the buzzer
+  if (switchState == HIGH) {
+    digitalWrite(buzzerPin, HIGH);
+  } else {
+    // Otherwise, turn off the buzzer
+    digitalWrite(buzzerPin, LOW);
+  }
+}
