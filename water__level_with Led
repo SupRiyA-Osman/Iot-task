@@ -1,0 +1,55 @@
+#define sensorPower 7
+#define sensorPin A0
+const int LED1 = 2;
+const int LED2 = 3;
+const int LED3 = 4;
+
+int val=0;
+void setup() 
+{
+  pinMode(LED2 , OUTPUT);
+  pinMode(LED1 , OUTPUT);
+  pinMode(LED3 , OUTPUT);
+
+  pinMode(sensorPower,OUTPUT);
+  digitalWrite(sensorPower, LOW);
+  Serial.begin(9600);
+}
+
+void loop() {
+int level= readSensor();
+
+Serial.print("Water Level is ");
+Serial.println(level);
+delay(1000);
+
+
+if (level>0 && level<150){
+   digitalWrite(LED1,HIGH);
+   delay(500);
+   digitalWrite(LED1,LOW);
+
+}
+else if (level>=150 && level<500){
+
+   digitalWrite(LED2,HIGH);
+   delay(500);
+   digitalWrite(LED2,LOW);
+}
+else if (level>=500){
+
+   digitalWrite(LED3,HIGH);
+   delay(500);
+   digitalWrite(LED3,LOW);
+}
+
+}
+
+int readSensor()
+{
+  digitalWrite(sensorPower,HIGH);
+  delay(10);
+  val=analogRead(sensorPin);
+  digitalWrite(sensorPower,LOW);
+  return val;
+}
