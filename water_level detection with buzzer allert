@@ -1,0 +1,72 @@
+//#define sensorPower 7
+//here we removed the sensor pin and short circuited the power to power in breadboard
+#define sensorPin A0
+const int relay1_n1= 2;
+const int relay2_n2= 3;
+const int buzzPin = 8;    
+
+
+int val=0;
+void setup() 
+{
+  pinMode(relay1_n1, OUTPUT);
+ pinMode(relay2_n2, OUTPUT);
+   pinMode(buzzPin, OUTPUT);
+
+  //pinMode(sensorPower,OUTPUT);
+  //digitalWrite(sensorPower, LOW);
+  Serial.begin(9600);
+}
+
+void loop() {
+int level= readSensor();
+
+Serial.print("Water Level is ");
+Serial.println(level);
+delay(1000);
+
+
+if (level>0 && level<600){
+   digitalWrite(relay1_n1, LOW);
+ digitalWrite(relay2_n2, HIGH);
+ delay(1000);
+ Serial.println("Rotating in CCW"); 
+ digitalWrite(relay1_n1, HIGH);
+ digitalWrite(relay2_n2, LOW);
+ Serial.println("Rotating in CW"); 
+delay(3000);
+if(level>=400 && level<=550)
+{
+    digitalWrite(buzzPin, HIGH);
+    
+    
+
+}
+else
+{
+      digitalWrite(buzzPin, LOW);
+
+}
+
+}
+else if (level>600){
+
+   digitalWrite(relay1_n1, HIGH);
+ digitalWrite(relay2_n2, HIGH);
+  delay(1000);
+
+ Serial.println("Stopped"); 
+}
+
+
+
+}
+
+int readSensor()
+{
+  //digitalWrite(sensorPower,HIGH);
+  //delay(10);
+  val=analogRead(sensorPin);
+  //digitalWrite(sensorPower,LOW);
+  return val;
+}
