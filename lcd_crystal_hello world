@@ -1,0 +1,21 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Initialize the LCD with I2C address 0x27, 16 columns, and 2 rows
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  // Initialize the LCD with number of columns and rows
+  lcd.begin(16, 2);
+
+  // Optionally, turn on the backlight (if your LCD has one)
+  lcd.backlight();
+
+  // Print "Hello, World!" to the LCD
+  lcd.setCursor(0, 0); // Set the cursor to the top-left corner
+  lcd.print("Hello, World!");
+}
+
+void loop() {
+  // Nothing to do here
+}
